@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>Black Sheep Restaurants - Beverage Database</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary: #2C3E50;
+            --secondary: #34495E;
+            --accent: #E67E22;
+            --accent-light: #F39C12;
+            --success: #27AE60;
+            --danger: #E74C3C;
+            --warning: #F1C40F;
+            --light: #ECF0F1;
+            --dark: #1E2B36;
+            --white: #FFFFFF;
+            --gray: #95A5A6;
+            --sidebar-width: 280px;
+            --profit: #27AE60;
+            --loss: #E74C3C;
+            --sheep-black: #1a1a1a;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+            color: var(--dark);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-header {
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--sheep-black);
+        }
+
+        .sheep-logo {
+            width: 40px;
+            height: 40px;
+            background: var(--sheep-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .restaurant-badge {
+            background: rgba(230,126,34,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--accent);
+            border: 1px solid rgba(230,126,34,0.3);
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.875rem 1rem;
+            border-radius: 12px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(230,126,34,0.1);
+            color: var(--accent);
+        }
+
+        .nav-item i {
+            width: 24px;
+            text-align: center;
+            color: var(--accent);
+        }
+
+        .favorites-section {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .favorites-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .content-wrapper {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .page-title {
+            color: var(--dark);
+            font-size: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: var(--white);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+            max-width: 100%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .search-container i {
+            color: var(--gray);
+            margin-right: 0.5rem;
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 0.95rem;
+            background: transparent;
+        }
+
+        /* Venue Cards */
+        .venue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .venue-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .venue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(230,126,34,0.1);
+        }
+
+        .venue-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .venue-name i {
+            color: var(--accent);
+        }
+
+        .cocktail-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cocktail-item {
+            background: rgba(44,62,80,0.02);
+            border-radius: 12px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cocktail-item:hover {
+            background: rgba(230,126,34,0.05);
+            transform: translateX(4px);
+        }
+
+        .cocktail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .cocktail-name {
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cocktail-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px dashed rgba(0,0,0,0.05);
+        }
+
+        .metric {
+            font-size: 0.75rem;
+        }
+
+        .metric-label {
+            color: var(--gray);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .profit {
+            color: var(--profit);
+        }
+
+        .cost {
+            color: var(--loss);
+        }
+
+        .abv-badge {
+            background: rgba(230,126,34,0.1);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+
+        /* Batch Calculator */
+        .batch-section {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .batch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .scale-control {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .scale-input-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--light);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .scale-input {
+            width: 80px;
+            padding: 0.5rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 6px;
+            text-align: center;
+            background: var(--white);
+        }
+
+        .unit-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .unit-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            background: var(--white);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .unit-btn.active {
+            background: var(--accent);
+            color: var(--white);
+            border-color: var(--accent);
+        }
+
+        /* Infusion & Distillation Cards */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .process-card {
+            background: linear-gradient(135deg, var(--white) 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .process-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .process-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .process-detail {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--light);
+            border-radius: 3px;
+            margin-top: 1rem;
+        }
+
+        .progress-fill {
+            width: 70%;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: scale(1.02);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-outline:hover {
+            background: rgba(230,126,34,0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 1001;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+
+            .venue-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cocktail-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: fixed;
+                top: 1rem;
+                left: 1rem;
+                z-index: 1002;
+                background: var(--accent);
+                color: var(--white);
+                padding: 0.75rem 1rem;
+                border-radius: 10px;
+                border: none;
+                font-size: 1.25rem;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--dark);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 2000;
+            font-weight: 500;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="sheep-logo">
+                        <i class="fas fa-sheep"></i>
+                    </div>
+                    <span>Black Sheep DB</span>
+                </div>
+                <div class="restaurant-badge">
+                    <i class="fas fa-star"></i> Black Sheep Restaurants
+                </div>
+            </div>
+
+            <nav class="nav-links">
+                <div class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item" data-page="drinks">
+                    <i class="fas fa-cocktail"></i>
+                    <span>Drinks Library</span>
+                </div>
+                <div class="nav-item" data-page="infusion">
+                    <i class="fas fa-flask"></i>
+                    <span>Infusion</span>
+                </div>
+                <div class="nav-item" data-page="distillation">
+                    <i class="fas fa-wine-bottle"></i>
+                    <span>Distillation</span>
+                </div>
+                <div class="nav-item" data-page="batches">
+                    <i class="fas fa-calculator"></i>
+                    <span>Batch Calculator</span>
+                </div>
+            </nav>
+
+            <div class="favorites-section">
+                <div class="favorites-title">
+                    <i class="fas fa-star"></i>
+                    <span>Favorite Cocktails</span>
+                </div>
+                <div id="favoritesList" class="favorites-list">
+                    <!-- Favorites will be dynamically added here -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper" id="mainContent">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer"></div>
+
+    <script>
+        // State Management
+        const AppState = {
+            venues: [
+                {
+                    id: 1,
+                    name: "The Chinnery",
+                    location: "Central",
+                    cocktails: [
+                        {
+                            id: 101,
+                            name: "Black Sheep Old Fashioned",
+                            favorite: true,
+                            recipe: [
+                                { ingredient: "House Bourbon", amount: 60, unit: "ml", abv: 45 },
+                                { ingredient: "Demerara Syrup", amount: 10, unit: "ml", abv: 0 },
+                                { ingredient: "Angostura Bitters", amount: 3, unit: "dash", abv: 45 }
+                            ],
+                            cost: 28.50,
+                            sellingPrice: 128,
+                            cogs: 22.3,
+                            abv: 38.5,
+                            batchSize: 1,
+                            category: "Classics"
+                        },
+                        {
+                            id: 102,
+                            name: "Penicillin",
+                            favorite: false,
+                            recipe: [
+                                { ingredient: "Blended Scotch", amount: 50, unit: "ml", abv: 40 },
+                                { ingredient: "Lemon Juice", amount: 20, unit: "ml", abv: 0 },
+                                { ingredient: "Honey Ginger Syrup", amount: 15, unit: "ml", abv: 0 },
+                                { ingredient: "Islay Scotch", amount: 7.5, unit: "ml", abv: 46 }
+                            ],
+                            cost: 42.30,
+                            sellingPrice: 148,
+                            cogs: 28.6,
+                            abv: 24.8,
+                            batchSize: 1,
+                            category: "Signature"
+                        }
+                    ]
+                },
+                {
+                    id: 2,
+                    name: "La Vache",
+                    location: "SoHo",
+                    cocktails: [
+                        {
+                            id: 201,
+                            name: "French 75",
+                            favorite: true,
+                            recipe: [
+                                { ingredient: "Gin", amount: 30, unit: "ml", abv: 47 },
+                                { ingredient: "Lemon Juice", amount: 15, unit: "ml", abv: 0 },
+                                { ingredient: "Simple Syrup", amount: 10, unit: "ml", abv: 0 },
+                                { ingredient: "Champagne", amount: 60, unit: "ml", abv: 12 }
+                            ],
+                            cost: 52.80,
+                            sellingPrice: 168,
+                            cogs: 31.4,
+                            abv: 16.5,
+                            batchSize: 1,
+                            category: "Classics"
+                        },
+                        {
+                            id: 202,
+                            name: "Steakhouse Negroni",
+                            favorite: false,
+                            recipe: [
+                                { ingredient: "House Gin", amount: 30, unit: "ml", abv: 47 },
+                                { ingredient: "Campari", amount: 30, unit: "ml", abv: 24 },
+                                { ingredient: "Sweet Vermouth", amount: 30, unit: "ml", abv: 16 }
+                            ],
+                            cost: 38.90,
+                            sellingPrice: 138,
+                            cogs: 28.2,
+                            abv: 29.0,
+                            batchSize: 1,
+                            category: "Signature"
+                        }
+                    ]
+                },
+                {
+                    id: 3,
+                    name: "New Punjab Club",
+                    location: "Central",
+                    cocktails: [
+                        {
+                            id: 301,
+                            name: "Masala Old Fashioned",
+                            favorite: true,
+                            recipe: [
+                                { ingredient: "Indian Single Malt", amount: 60, unit: "ml", abv: 46 },
+                                { ingredient: "Masala Syrup", amount: 10, unit: "ml", abv: 0 },
+                                { ingredient: "Angostura Bitters", amount: 3, unit: "dash", abv: 45 }
+                            ],
+                            cost: 45.20,
+                            sellingPrice: 158,
+                            cogs: 28.6,
+                            abv: 40.2,
+                            batchSize: 1,
+                            category: "Signature"
+                        },
+                        {
+                            id: 302,
+                            name: "Lahori Margarita",
+                            favorite: false,
+                            recipe: [
+                                { ingredient: "Tequila", amount: 50, unit: "ml", abv: 40 },
+                                { ingredient: "Lime Juice", amount: 20, unit: "ml", abv: 0 },
+                                { ingredient: "Cumin Syrup", amount: 15, unit: "ml", abv: 0 },
+                                { ingredient: "Coriander Tincture", amount: 2, unit: "dash", abv: 55 }
+                            ],
+                            cost: 38.70,
+                            sellingPrice: 148,
+                            cogs: 26.1,
+                            abv: 26.5,
+                            batchSize: 1,
+                            category: "Signature"
+                        }
+                    ]
+                }
+            ],
+            infusions: [
+                {
+                    id: 1,
+                    name: "Spiced Pineapple Rum",
+                    base: "Plantation 3 Star",
+                    ingredients: ["Pineapple", "Cinnamon", "Clove"],
+                    duration: "48 hours",
+                    yield: 750,
+                    unit: "ml",
+                    progress: 70
+                },
+                {
+                    id: 2,
+                    name: "Black Garlic Bourbon",
+                    base: "Wild Turkey 101",
+                    ingredients: ["Black Garlic", "Honey"],
+                    duration: "72 hours",
+                    yield: 500,
+                    unit: "ml",
+                    progress: 45
+                }
+            ],
+            distillations: [
+                {
+                    id: 1,
+                    name: "House Gin",
+                    base: "Neutral Spirit",
+                    botanicals: ["Juniper", "Coriander", "Citrus"],
+                    abv: 47,
+                    yield: 5,
+                    unit: "L",
+                    progress: 30
+                },
+                {
+                    id: 2,
+                    name: "Vodka",
+                    base: "Wheat Spirit",
+                    botanicals: ["None"],
+                    abv: 40,
+                    yield: 10,
+                    unit: "L",
+                    progress: 60
+                }
+            ],
+            currentPage: 'dashboard',
+            scaleUnit: 'serving' // serving or volume
+        };
+
+        // DOM Elements
+        const mainContent = document.getElementById('mainContent');
+        const sidebar = document.getElementById('sidebar');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                const page = item.dataset.page;
+                AppState.currentPage = page;
+                renderPage(page);
+                
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+
+        // Render Pages
+        function renderPage(page) {
+            switch(page) {
+                case 'dashboard':
+                    renderDashboard();
+                    break;
+                case 'drinks':
+                    renderDrinksLibrary();
+                    break;
+                case 'infusion':
+                    renderInfusion();
+                    break;
+                case 'distillation':
+                    renderDistillation();
+                    break;
+                case 'batches':
+                    renderBatchCalculator();
+                    break;
+            }
+        }
+
+        // Dashboard Page
+        function renderDashboard() {
+            const totalCocktails = AppState.venues.reduce((acc, venue) => acc + venue.cocktails.length, 0);
+            const totalInfusions = AppState.infusions.length;
+            const totalDistillations = AppState.distillations.length;
+            const favorites = AppState.venues.flatMap(v => v.cocktails.filter(c => c.favorite));
+            
+            mainContent.innerHTML = `
+                <div class="top-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-home"></i>
+                        Dashboard
+                    </h1>
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search cocktails, venues..." id="globalSearch">
+                    </div>
+                </div>
+
+                <div class="venue-grid">
+                    <div class="venue-card">
+                        <div class="venue-header">
+                            <div class="venue-name">
+                                <i class="fas fa-cocktail"></i>
+                                Total Cocktails
+                            </div>
+                        </div>
+                        <h2 style="font-size: 3rem; color: var(--accent);">${totalCocktails}</h2>
+                        <p style="color: var(--gray);">Across ${AppState.venues.length} venues</p>
+                    </div>
+
+                    <div class="venue-card">
+                        <div class="venue-header">
+                            <div class="venue-name">
+                                <i class="fas fa-flask"></i>
+                                Active Infusions
+                            </div>
+                        </div>
+                        <h2 style="font-size: 3rem; color: var(--accent);">${totalInfusions}</h2>
+                        <p style="color: var(--gray);">In progress</p>
+                    </div>
+
+                    <div class="venue-card">
+                        <div class="venue-header">
+                            <div class="venue-name">
+                                <i class="fas fa-wine-bottle"></i>
+                                Distillations
+                            </div>
+                        </div>
+                        <h2 style="font-size: 3rem; color: var(--accent);">${totalDistillations}</h2>
+                        <p style="color: var(--gray);">House spirits</p>
+                    </div>
+                </div>
+
+                <div class="batch-section">
+                    <div class="batch-header">
+                        <div class="venue-name">
+                            <i class="fas fa-star"></i>
+                            Favorite Cocktails
+                        </div>
+                    </div>
+                    <div class="cocktail-list">
+                        ${favorites.length > 0 ? favorites.map(cocktail => `
+                            <div class="cocktail-item">
+                                <div class="cocktail-header">
+                                    <span class="cocktail-name">
+                                        <i class="fas fa-cocktail"></i>
+                                        ${cocktail.name}
+                                    </span>
+                                    <span class="abv-badge">${cocktail.abv}% ABV</span>
+                                </div>
+                                <div class="cocktail-metrics">
+                                    <div class="metric">
+                                        <div class="metric-label">Cost</div>
+                                        <div class="metric-value cost">$${cocktail.cost.toFixed(2)}</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-label">COGS</div>
+                                        <div class="metric-value">${cocktail.cogs}%</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-label">Selling Price</div>
+                                        <div class="metric-value">$${cocktail.sellingPrice}</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-label">Profit</div>
+                                        <div class="metric-value profit">$${(cocktail.sellingPrice - cocktail.cost).toFixed(2)}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('') : `
+                            <p style="color: var(--gray); text-align: center; padding: 2rem;">
+                                <i class="fas fa-star"></i> No favorites yet. Star cocktails to see them here.
+                            </p>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Drinks Library - Arranged by Venue, Alphabetical Order
+        function renderDrinksLibrary() {
+            // Sort venues alphabetically
+            const sortedVenues = [...AppState.venues].sort((a, b) => a.name.localeCompare(b.name));
+            
+            mainContent.innerHTML = `
+                <div class="top-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-cocktail"></i>
+                        Drinks Library
+                    </h1>
+                    <button class="btn btn-primary" onclick="showAddCocktailModal()">
+                        <i class="fas fa-plus"></i> New Cocktail
+                    </button>
+                </div>
+
+                <div class="venue-grid">
+                    ${sortedVenues.map(venue => {
+                        // Sort cocktails alphabetically
+                        const sortedCocktails = [...venue.cocktails].sort((a, b) => a.name.localeCompare(b.name));
+                        
+                        return `
+                            <div class="venue-card">
+                                <div class="venue-header">
+                                    <div class="venue-name">
+                                        <i class="fas fa-store"></i>
+                                        ${venue.name}
+                                    </div>
+                                    <span style="color: var(--gray); font-size: 0.875rem;">
+                                        <i class="fas fa-location-dot"></i> ${venue.location}
+                                    </span>
+                                </div>
+                                <div class="cocktail-list">
+                                    ${sortedCocktails.map(cocktail => `
+                                        <div class="cocktail-item" onclick="showCocktailDetails(${venue.id}, ${cocktail.id})">
+                                            <div class="cocktail-header">
+                                                <span class="cocktail-name">
+                                                    <i class="fas fa-cocktail"></i>
+                                                    ${cocktail.name}
+                                                    <button class="favorite-btn ${cocktail.favorite ? 'active' : ''}" 
+                                                            onclick="toggleFavorite(${venue.id}, ${cocktail.id}, event)"
+                                                            style="background: none; border: none; color: ${cocktail.favorite ? 'var(--warning)' : 'var(--gray)'};">
+                                                        <i class="fa${cocktail.favorite ? 's' : 'r'} fa-star"></i>
+                                                    </button>
+                                                </span>
+                                                <span class="abv-badge">${cocktail.abv}% ABV</span>
+                                            </div>
+                                            <div style="font-size: 0.875rem; color: var(--gray); margin-bottom: 0.5rem;">
+                                                ${cocktail.recipe.map(r => `${r.amount}${r.unit} ${r.ingredient}`).join(' • ')}
+                                            </div>
+                                            <div class="cocktail-metrics">
+                                                <div class="metric">
+                                                    <div class="metric-label">Cost</div>
+                                                    <div class="metric-value cost">$${cocktail.cost.toFixed(2)}</div>
+                                                </div>
+                                                <div class="metric">
+                                                    <div class="metric-label">COGS</div>
+                                                    <div class="metric-value">${cocktail.cogs}%</div>
+                                                </div>
+                                                <div class="metric">
+                                                    <div class="metric-label">Selling</div>
+                                                    <div class="metric-value">$${cocktail.sellingPrice}</div>
+                                                </div>
+                                                <div class="metric">
+                                                    <div class="metric-label">Final ABV</div>
+                                                    <div class="metric-value">${cocktail.abv}%</div>
+                                                </div>
+                                            </div>
+                                            <div class="scale-control" style="margin-top: 1rem;">
+                                                <div class="scale-input-group">
+                                                    <i class="fas fa-flask"></i>
+                                                    <input type="number" class="scale-input" value="${cocktail.batchSize}" min="1" step="1" 
+                                                           onchange="updateBatchSize(${venue.id}, ${cocktail.id}, this.value)"
+                                                           onclick="event.stopPropagation()">
+                                                    <span style="font-size: 0.875rem;">servings</span>
+                                                </div>
+                                                <button class="btn-outline" style="padding: 0.5rem 1rem;" 
+                                                        onclick="scaleCocktail(${venue.id}, ${cocktail.id}, event)">
+                                                    <i class="fas fa-copy"></i> Scale Batch
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        // Infusion Page
+        function renderInfusion() {
+            mainContent.innerHTML = `
+                <div class="top-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-flask"></i>
+                        Infusion Lab
+                    </h1>
+                    <button class="btn btn-primary" onclick="showNewInfusionModal()">
+                        <i class="fas fa-plus"></i> New Infusion
+                    </button>
+                </div>
+
+                <div class="process-grid">
+                    ${AppState.infusions.map(infusion => `
+                        <div class="process-card">
+                            <div class="process-header">
+                                <div class="process-title">
+                                    <i class="fas fa-flask"></i>
+                                    ${infusion.name}
+                                </div>
+                                <span class="abv-badge">${infusion.yield}${infusion.unit}</span>
+                            </div>
+                            <div class="process-detail">
+                                <strong>Base:</strong> ${infusion.base}
+                            </div>
+                            <div class="process-detail">
+                                <strong>Ingredients:</strong> ${infusion.ingredients.join(', ')}
+                            </div>
+                            <div class="process-detail">
+                                <strong>Duration:</strong> ${infusion.duration}
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${infusion.progress}%;"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
+                                <span style="font-size: 0.75rem; color: var(--gray);">Progress</span>
+                                <span style="font-size: 0.75rem; font-weight: 600;">${infusion.progress}%</span>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <button class="btn-outline" style="width: 100%; padding: 0.5rem;" onclick="recordInfusionProgress(${infusion.id})">
+                                    <i class="fas fa-check"></i> Update Progress
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="batch-section" style="margin-top: 2rem;">
+                    <div class="batch-header">
+                        <div class="venue-name">
+                            <i class="fas fa-book"></i>
+                            Infusion Log
+                        </div>
+                    </div>
+                    <table class="recipe-table" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: var(--light);">
+                                <th style="padding: 1rem; text-align: left;">Date</th>
+                                <th style="padding: 1rem; text-align: left;">Infusion</th>
+                                <th style="padding: 1rem; text-align: left;">Base</th>
+                                <th style="padding: 1rem; text-align: left;">Yield</th>
+                                <th style="padding: 1rem; text-align: left;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 1rem;">2024-01-15</td>
+                                <td style="padding: 1rem;">Spiced Pineapple Rum</td>
+                                <td style="padding: 1rem;">Plantation 3 Star</td>
+                                <td style="padding: 1rem;">750ml</td>
+                                <td style="padding: 1rem;"><span style="color: var(--success);">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        // Distillation Page
+        function renderDistillation() {
+            mainContent.innerHTML = `
+                <div class="top-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-wine-bottle"></i>
+                        Distillation
+                    </h1>
+                    <button class="btn btn-primary" onclick="showNewDistillationModal()">
+                        <i class="fas fa-plus"></i> New Distillation
+                    </button>
+                </div>
+
+                <div class="process-grid">
+                    ${AppState.distillations.map(distillation => `
+                        <div class="process-card">
+                            <div class="process-header">
+                                <div class="process-title">
+                                    <i class="fas fa-wine-bottle"></i>
+                                    ${distillation.name}
+                                </div>
+                                <span class="abv-badge">${distillation.abv}% ABV</span>
+                            </div>
+                            <div class="process-detail">
+                                <strong>Base:</strong> ${distillation.base}
+                            </div>
+                            <div class="process-detail">
+                                <strong>Botanicals:</strong> ${distillation.botanicals.join(', ')}
+                            </div>
+                            <div class="process-detail">
+                                <strong>Yield:</strong> ${distillation.yield}${distillation.unit}
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${distillation.progress}%;"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
+                                <span style="font-size: 0.75rem; color: var(--gray);">Process</span>
+                                <span style="font-size: 0.75rem; font-weight: 600;">${distillation.progress}%</span>
+                            </div>
+                            <div style="margin-top: 1rem;">
+                                <button class="btn-outline" style="width: 100%; padding: 0.5rem;" onclick="recordDistillationProgress(${distillation.id})">
+                                    <i class="fas fa-tachometer-alt"></i> Record Proof
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="batch-section" style="margin-top: 2rem;">
+                    <div class="batch-header">
+                        <div class="venue-name">
+                            <i class="fas fa-chart-line"></i>
+                            House Spirit Library
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div style="background: rgba(230,126,34,0.05); padding: 1rem; border-radius: 12px;">
+                            <div style="font-weight: 600;">House Gin</div>
+                            <div style="color: var(--gray);">47% ABV | 5L Batch</div>
+                            <div style="color: var(--accent); margin-top: 0.5rem;">In Stock: 3.2L</div>
+                        </div>
+                        <div style="background: rgba(230,126,34,0.05); padding: 1rem; border-radius: 12px;">
+                            <div style="font-weight: 600;">House Vodka</div>
+                            <div style="color: var(--gray);">40% ABV | 10L Batch</div>
+                            <div style="color: var(--accent); margin-top: 0.5rem;">In Stock: 8.5L</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Batch Calculator Page
+        function renderBatchCalculator() {
+            mainContent.innerHTML = `
+                <div class="top-header">
+                    <h1 class="page-title">
+                        <i class="fas fa-calculator"></i>
+                        Batch Calculator
+                    </h1>
+                </div>
+
+                <div class="batch-section">
+                    <div class="batch-header">
+                        <div class="venue-name">
+                            <i class="fas fa-flask"></i>
+                            Scale by Volume or Servings
+                        </div>
+                        <div class="unit-toggle">
+                            <button class="unit-btn ${AppState.scaleUnit === 'serving' ? 'active' : ''}" onclick="setScaleUnit('serving')">
+                                <i class="fas fa-users"></i> Servings
+                            </button>
+                            <button class="unit-btn ${AppState.scaleUnit === 'volume' ? 'active' : ''}" onclick="setScaleUnit('volume')">
+                                <i class="fas fa-flask"></i> Volume (L)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <label style="font-weight: 600; color: var(--primary);">Select Cocktail</label>
+                            <select id="batchCocktailSelect" class="scale-input" style="width: 100%; margin-top: 0.5rem; padding: 0.75rem;">
+                                <option value="">Choose a cocktail...</option>
+                                ${AppState.venues.flatMap(venue => 
+                                    venue.cocktails.map(cocktail => 
+                                        `<option value="${venue.id}-${cocktail.id}">${venue.name} - ${cocktail.name}</option>`
+                                    )
+                                ).join('')}
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label style="font-weight: 600; color: var(--primary);">
+                                ${AppState.scaleUnit === 'serving' ? 'Target Servings' : 'Target Volume (L)'}
+                            </label>
+                            <input type="number" id="targetScale" class="scale-input" 
+                                   style="width: 100%; margin-top: 0.5rem; padding: 0.75rem;" 
+                                   min="0.1" step="0.1" value="10">
+                        </div>
+                    </div>
+
+                    <div id="batchResults" style="margin-top: 2rem; display: none;">
+                        <!-- Batch results will be displayed here -->
+                    </div>
+
+                    <button class="btn btn-primary" onclick="calculateProductionBatch()" style="margin-top: 1.5rem; width: 100%; padding: 1rem;">
+                        <i class="fas fa-calculator"></i> Calculate Production Batch
+                    </button>
+                </div>
+
+                <div class="batch-section" style="margin-top: 1.5rem;">
+                    <div class="batch-header">
+                        <div class="venue-name">
+                            <i class="fas fa-history"></i>
+                            Recent Batch Calculations
+                        </div>
+                    </div>
+                    <div style="padding: 1rem; background: rgba(230,126,34,0.05); border-radius: 12px;">
+                        <p style="color: var(--gray); margin-bottom: 0.5rem;">
+                            <i class="fas fa-info-circle"></i> Select a cocktail and target size to calculate batch recipe
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Batch Calculation Function
+        function calculateProductionBatch() {
+            const select = document.getElementById('batchCocktailSelect');
+            const targetValue = parseFloat(document.getElementById('targetScale').value);
+            
+            if (!select.value || !targetValue) {
+                showToast('Please select a cocktail and enter target size');
+                return;
+            }
+
+            const [venueId, cocktailId] = select.value.split('-').map(Number);
+            const venue = AppState.venues.find(v => v.id === venueId);
+            const cocktail = venue.cocktails.find(c => c.id === cocktailId);
+
+            if (!cocktail) return;
+
+            let scaleFactor;
+            if (AppState.scaleUnit === 'serving') {
+                scaleFactor = targetValue / cocktail.batchSize;
+            } else {
+                // Calculate based on volume (assuming 1 serving = ~150ml total volume)
+                const servingVolume = cocktail.recipe.reduce((acc, item) => {
+                    if (item.unit === 'ml') return acc + item.amount;
+                    if (item.unit === 'dash') return acc + 0.92;
+                    return acc;
+                }, 0);
+                const totalVolumeML = targetValue * 1000; // Convert L to ml
+                scaleFactor = totalVolumeML / servingVolume;
+            }
+
+            const scaledRecipe = cocktail.recipe.map(item => ({
+                ...item,
+                scaledAmount: (item.amount * scaleFactor).toFixed(1)
+            }));
+
+            const totalVolume = scaledRecipe.reduce((acc, item) => acc + parseFloat(item.scaledAmount), 0);
+            const batchCOGS = (cocktail.cost * scaleFactor).toFixed(2);
+            const batchRevenue = (cocktail.sellingPrice * (AppState.scaleUnit === 'serving' ? targetValue : (totalVolume / 150))).toFixed(2);
+
+            const resultsDiv = document.getElementById('batchResults');
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = `
+                <h3 style="color: var(--accent); margin-bottom: 1.5rem;">
+                    Production Batch: ${cocktail.name}
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                    <div style="background: var(--light); padding: 1rem; border-radius: 12px;">
+                        <div style="font-size: 0.875rem; color: var(--gray);">Scale Factor</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">${scaleFactor.toFixed(2)}x</div>
+                    </div>
+                    <div style="background: var(--light); padding: 1rem; border-radius: 12px;">
+                        <div style="font-size: 0.875rem; color: var(--gray);">Total Volume</div>
+                        <div style="font-size: 1.5rem; font-weight: 700;">${(totalVolume / 1000).toFixed(2)}L</div>
+                    </div>
+                    <div style="background: var(--light); padding: 1rem; border-radius: 12px;">
+                        <div style="font-size: 0.875rem; color: var(--gray);">Batch COGS</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--loss);">$${batchCOGS}</div>
+                    </div>
+                </div>
+
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid var(--accent);">
+                            <th style="padding: 0.75rem; text-align: left;">Ingredient</th>
+                            <th style="padding: 0.75rem; text-align: left;">Single Serving</th>
+                            <th style="padding: 0.75rem; text-align: left;">Batch Amount</th>
+                            <th style="padding: 0.75rem; text-align: left;">Unit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${scaledRecipe.map(item => `
+                            <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                <td style="padding: 0.75rem;">${item.ingredient}</td>
+                                <td style="padding: 0.75rem;">${item.amount}</td>
+                                <td style="padding: 0.75rem; font-weight: 600;">${item.scaledAmount}</td>
+                                <td style="padding: 0.75rem;">${item.unit}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(39,174,96,0.1); border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span style="margin-left: 0.5rem; font-weight: 600;">Batch Recipe Ready</span>
+                        </div>
+                        <div>
+                            <span style="color: var(--gray);">Projected Revenue:</span>
+                            <span style="font-weight: 700; color: var(--success); margin-left: 0.5rem;">$${batchRevenue}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            showToast(`Batch calculation complete for ${cocktail.name}`);
+        }
+
+        // Utility Functions
+        function setScaleUnit(unit) {
+            AppState.scaleUnit = unit;
+            renderBatchCalculator();
+        }
+
+        function toggleFavorite(venueId, cocktailId, event) {
+            event.stopPropagation();
+            const venue = AppState.venues.find(v => v.id === venueId);
+            const cocktail = venue.cocktails.find(c => c.id === cocktailId);
+            
+            if (cocktail) {
+                cocktail.favorite = !cocktail.favorite;
+                showToast(cocktail.favorite ? 'Added to favorites' : 'Removed from favorites');
+                renderPage(AppState.currentPage);
+                updateFavoritesList();
+            }
+        }
+
+        function updateBatchSize(venueId, cocktailId, size) {
+            const venue = AppState.venues.find(v => v.id === venueId);
+            const cocktail = venue.cocktails.find(c => c.id === cocktailId);
+            
+            if (cocktail) {
+                cocktail.batchSize = parseInt(size) || 1;
+                showToast(`Batch size updated for ${cocktail.name}`);
+            }
+        }
+
+        function scaleCocktail(venueId, cocktailId, event) {
+            event.stopPropagation();
+            const venue = AppState.venues.find(v => v.id === venueId);
+            const cocktail = venue.cocktails.find(c => c.id === cocktailId);
+            
+            if (cocktail) {
+                AppState.currentPage = 'batches';
+                renderPage('batches');
+                
+                setTimeout(() => {
+                    const select = document.getElementById('batchCocktailSelect');
+                    if (select) {
+                        select.value = `${venueId}-${cocktailId}`;
+                        document.getElementById('targetScale').value = cocktail.batchSize * 2;
+                        calculateProductionBatch();
+                    }
+                }, 100);
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <i class="fas fa-check-circle"></i>
+                ${message}
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        function updateFavoritesList() {
+            const favoritesList = document.getElementById('favoritesList');
+            if (favoritesList) {
+                const favorites = AppState.venues.flatMap(v => 
+                    v.cocktails.filter(c => c.favorite)
+                );
+                
+                favoritesList.innerHTML = favorites.map(cocktail => `
+                    <div class="nav-item" onclick="renderPage('drinks')">
+                        <i class="fas fa-cocktail"></i>
+                        <span>${cocktail.name}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Modal Functions
+        function showAddCocktailModal() {
+            showToast('New cocktail creation tool opening...');
+        }
+
+        function showNewInfusionModal() {
+            showToast('New infusion setup opening...');
+        }
+
+        function showNewDistillationModal() {
+            showToast('New distillation batch setup...');
+        }
+
+        function showCocktailDetails(venueId, cocktailId) {
+            showToast('Opening cocktail specifications...');
+        }
+
+        function recordInfusionProgress(id) {
+            showToast('Record infusion progress');
+        }
+
+        function recordDistillationProgress(id) {
+            showToast('Record distillation proof');
+        }
+
+        // Initialize Dashboard
+        renderDashboard();
+        updateFavoritesList();
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
