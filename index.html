@@ -779,7 +779,7 @@
             margin-top: 1.5rem;
         }
 
-        .item-card {
+        .item-card, .classic-card {
             background: var(--white);
             border-radius: 16px;
             padding: 1.25rem;
@@ -792,13 +792,13 @@
             position: relative;
         }
 
-        .item-card:hover {
+        .item-card:hover, .classic-card:hover {
             background: var(--accent-soft);
             transform: translateX(4px);
             border-color: var(--accent);
         }
 
-        .item-thumbnail {
+        .item-thumbnail, .classic-image {
             width: 60px;
             height: 60px;
             border-radius: 12px;
@@ -808,26 +808,31 @@
             justify-content: center;
             overflow: hidden;
             position: relative;
+            flex-shrink: 0;
         }
 
-        .item-thumbnail img {
+        .item-thumbnail img, .classic-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        .item-info {
+        .item-info, .classic-info {
             flex: 1;
         }
 
-        .item-name {
+        .item-name, .classic-name {
             font-weight: 700;
             color: var(--primary);
             font-size: 1.1rem;
             margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
-        .item-meta {
+        .item-meta, .classic-meta {
             display: flex;
             gap: 1rem;
             font-size: 0.75rem;
@@ -836,7 +841,7 @@
             flex-wrap: wrap;
         }
 
-        .item-badge {
+        .item-badge, .classic-price-badge {
             background: var(--accent-soft);
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
@@ -845,7 +850,17 @@
             color: var(--accent);
         }
 
-        .action-btn {
+        .family-tag {
+            background: var(--accent-soft);
+            padding: 0.15rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--accent);
+            display: inline-block;
+        }
+
+        .action-btn, .classic-action-btn {
             background: none;
             border: 1px solid var(--primary);
             padding: 0.25rem 0.75rem;
@@ -857,20 +872,25 @@
             margin-left: 0.5rem;
         }
 
-        .action-btn:hover {
+        .action-btn:hover, .classic-action-btn:hover {
             background: var(--primary);
             color: white;
         }
 
-        .share-btn {
+        .share-btn, .classic-share-btn {
             border-color: var(--accent);
             color: var(--accent);
         }
 
-        .share-btn:hover {
+        .share-btn:hover, .classic-share-btn:hover {
             background: var(--accent);
             border-color: var(--accent);
             color: white;
+        }
+
+        .favorite-star {
+            color: var(--accent);
+            margin-left: 0.25rem;
         }
 
         /* Overview Menu Styles */
@@ -1477,125 +1497,6 @@
             border-radius: 16px;
             padding: 1.5rem;
             margin: 1.5rem 0;
-        }
-
-        /* Classic Cocktails Grid - Now using item-list format to match venue cocktails */
-        .classic-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .classic-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-        }
-
-        .classic-card:hover {
-            background: var(--accent-soft);
-            transform: translateX(4px);
-            border-color: var(--accent);
-        }
-
-        .classic-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            background: var(--light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .classic-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .classic-info {
-            flex: 1;
-        }
-
-        .classic-name {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .classic-family {
-            font-size: 0.7rem;
-            color: var(--accent);
-            font-weight: 600;
-            margin-left: 0.5rem;
-        }
-
-        .classic-meta {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.75rem;
-            color: var(--gray);
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .classic-price {
-            background: var(--accent-soft);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--accent);
-        }
-
-        .classic-actions {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .classic-action-btn {
-            background: none;
-            border: 1px solid var(--primary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            color: var(--primary);
-        }
-
-        .classic-action-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .classic-share-btn {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .classic-share-btn:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-        }
-
-        .favorite-star {
-            color: var(--accent);
-            margin-left: 0.5rem;
         }
 
         /* Buttons */
@@ -2398,7 +2299,7 @@
                     dateAdded: "2024-01-15",
                     author: "Classic Recipe",
                     dilutionPreset: "shake",
-                    notes: "",
+                    notes: "This classic aviation recipe creates a beautifully balanced cocktail with floral notes from the crème de violette.",
                     favorite: false
                 },
                 {
@@ -2422,7 +2323,7 @@
                     dateAdded: "2024-01-20",
                     author: "Classic Recipe",
                     dilutionPreset: "stir",
-                    notes: "",
+                    notes: "The Boulevardier is a classic cocktail that predates the Negroni and uses bourbon instead of gin.",
                     favorite: false
                 },
                 {
@@ -2445,7 +2346,7 @@
                     dateAdded: "2024-01-10",
                     author: "Classic Recipe",
                     dilutionPreset: "stir",
-                    notes: "",
+                    notes: "The perfect dry martini. Use a high-quality gin and adjust vermouth to taste.",
                     favorite: false
                 }
             ],
@@ -2469,6 +2370,7 @@
             currentView: 'venues',
             selectedVenue: null,
             selectedCocktail: null,
+            selectedClassicCocktail: null,
             selectedInfusion: null,
             selectedDistillation: null,
             scaleMethod: 'serving',
@@ -3425,7 +3327,7 @@
             `;
         }
 
-        // View Cocktail Detail - Full Page with Batch Scaling and Dilution
+        // View Cocktail Detail - Full Page with Batch Scaling and Dilution (for venue cocktails)
         function viewCocktailDetail(venueId, cocktailId) {
             const venue = AppState.venues.find(v => v.id === venueId);
             const cocktail = venue?.cocktails.find(c => c.id === cocktailId);
@@ -3443,6 +3345,451 @@
             AppState.includeWater = true;
             
             renderCocktailDetailPage(venueId, cocktailId);
+        }
+
+        // View Classic Cocktail Detail - Full Page with Batch Scaling and Dilution
+        function viewClassicCocktailDetail(cocktailId) {
+            const cocktail = AppState.classicCocktails.find(c => c.id === cocktailId);
+            if (!cocktail) return;
+            
+            AppState.currentView = 'classic-detail';
+            AppState.selectedClassicCocktail = cocktailId;
+            AppState.scaleMethod = 'serving';
+            AppState.scaleQuantity = 1;
+            AppState.dilutionType = cocktail.dilutionPreset || 'none';
+            AppState.customDilution = 0.20;
+            AppState.showScaledResults = false;
+            AppState.omittedIngredients = [];
+            AppState.includeWater = true;
+            
+            renderClassicCocktailDetailPage(cocktailId);
+        }
+
+        // Render Classic Cocktail Detail Page
+        function renderClassicCocktailDetailPage(cocktailId) {
+            const cocktail = AppState.classicCocktails.find(c => c.id === cocktailId);
+            if (!cocktail) return;
+
+            let dilutionFactor = AppState.dilutionPresets[AppState.dilutionType] || 0;
+            if (AppState.dilutionType === 'custom') {
+                dilutionFactor = AppState.customDilution;
+            }
+
+            const activeRecipe = cocktail.recipe.filter((item, index) => 
+                !AppState.omittedIngredients.includes(`${cocktailId}-${index}`)
+            );
+
+            const totalPreDilutionVolume = activeRecipe.reduce((acc, item) => {
+                if (item.unit === 'ml') return acc + item.amount;
+                if (item.unit === 'dash') return acc + (item.amount * DASH_TO_ML);
+                if (item.unit === 'oz') return acc + (item.amount * 29.5735);
+                return acc;
+            }, 0);
+
+            const scaleFactor = AppState.scaleMethod === 'serving' 
+                ? AppState.scaleQuantity / (cocktail.batchSize || 1)
+                : AppState.scaleQuantity / totalPreDilutionVolume;
+            
+            const waterAmount = AppState.showScaledResults && dilutionFactor > 0 ? totalPreDilutionVolume * dilutionFactor * scaleFactor : 0;
+            
+            let scaledRecipe = [];
+            let totalVolume = 0;
+            let batchCost = 0;
+            let batchRevenue = 0;
+            let finalAbv = 0;
+            let servingsFromVolume = 0;
+            
+            if (AppState.showScaledResults) {
+                scaledRecipe = activeRecipe.map(item => ({
+                    ...item,
+                    scaledAmount: (item.amount * scaleFactor).toFixed(1)
+                }));
+
+                if (AppState.includeWater && waterAmount > 0) {
+                    scaledRecipe.push({
+                        ingredient: "Water (dilution)",
+                        amount: 0,
+                        scaledAmount: waterAmount.toFixed(1),
+                        unit: "ml",
+                        pourCost: 0,
+                        abv: 0,
+                        isWater: true
+                    });
+                }
+
+                totalVolume = scaledRecipe.reduce((acc, item) => acc + parseFloat(item.scaledAmount), 0);
+                batchCost = activeRecipe.reduce((acc, item) => acc + (item.pourCost * scaleFactor), 0);
+                batchRevenue = (cocktail.sellingPrice * (AppState.scaleMethod === 'serving' ? AppState.scaleQuantity : totalVolume / 150));
+                servingsFromVolume = Math.round(totalVolume / 150);
+                
+                const totalAlcohol = activeRecipe.reduce((acc, item) => {
+                    let amount = item.amount;
+                    if (item.unit === 'dash') {
+                        amount = amount * DASH_TO_ML;
+                    }
+                    return acc + (amount * (item.abv / 100));
+                }, 0);
+                
+                finalAbv = totalPreDilutionVolume > 0 
+                    ? (totalAlcohol / totalPreDilutionVolume) / (1 + dilutionFactor) * 100 
+                    : 0;
+            }
+
+            mainContent.innerHTML = `
+                <div class="top-header">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <button class="back-button" onclick="renderClassicCocktails()">
+                            <i class="fas fa-arrow-left"></i> Back to Classics
+                        </button>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn btn-primary" onclick="editClassicCocktail(${cocktailId})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn btn-outline" onclick="shareClassicCocktail(${cocktailId})">
+                            <i class="fas fa-share-alt"></i> Share
+                        </button>
+                        <button class="favorite-btn" onclick="toggleClassicFavorite(${cocktailId})" 
+                                style="background: none; border: 1px solid ${cocktail.favorite ? 'var(--warning)' : 'var(--gray)'}; padding: 0.75rem 1.5rem; border-radius: 10px; color: ${cocktail.favorite ? 'var(--warning)' : 'var(--gray)'};">
+                            <i class="fa${cocktail.favorite ? 's' : 'r'} fa-star"></i> Favorite
+                        </button>
+                    </div>
+                </div>
+
+                <div class="cocktail-detail-page">
+                    <div class="cocktail-silhouette">
+                        <img src="${cocktail.image || 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400'}" alt="silhouette">
+                    </div>
+
+                    <div class="detail-content">
+                        <div class="detail-header">
+                            <div class="detail-image">
+                                <img src="${cocktail.image || 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400'}" alt="${cocktail.name}" id="cocktailDetailImage">
+                                <div class="image-upload-btn">
+                                    <input type="file" accept="image/*" onchange="uploadClassicCocktailImage(${cocktailId}, event)" style="display: none;" id="classicImageUpload">
+                                    <button class="btn btn-outline" style="padding: 0.5rem;" onclick="document.getElementById('classicImageUpload').click()">
+                                        <i class="fas fa-camera"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="detail-title">
+                                <div class="detail-name">${cocktail.name}</div>
+                                <div class="detail-venue">
+                                    <i class="fas fa-book"></i> Classic Cocktail
+                                    <span style="margin-left: 1rem; background: rgba(230,126,34,0.1); padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.875rem;">
+                                        ${cocktail.family || 'Classic'}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-row">
+                            <div class="info-item">
+                                <span class="info-item-label">Glassware</span>
+                                <span class="info-item-value">${cocktail.glassware}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-item-label">Garnish</span>
+                                <span class="info-item-value">${cocktail.garnish}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-item-label">Final ABV</span>
+                                <span class="info-item-value">${cocktail.finalAbv.toFixed(1)}%</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-item-label">Added</span>
+                                <span class="info-item-value">${cocktail.dateAdded || '2024-01-15'}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-item-label">Author</span>
+                                <span class="info-item-value">${cocktail.author || 'Classic Recipe'}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-item-label selling-price">Selling Price</span>
+                                <span class="info-item-value selling-price">$${cocktail.sellingPrice}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-item-label">COGS</span>
+                                <span class="info-item-value" style="color: ${cocktail.cogs < 25 ? 'var(--success)' : cocktail.cogs < 35 ? '#F39C12' : 'var(--danger)'};">
+                                    ${cocktail.cogs}%
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="recipe-section">
+                            <div class="section-title">
+                                <i class="fas fa-flask"></i> Recipe
+                            </div>
+
+                            <table class="recipe-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 40px;">Omit</th>
+                                        <th>Ingredient</th>
+                                        <th>Amount</th>
+                                        <th>Unit</th>
+                                        <th>Pour Cost</th>
+                                        <th>ABV</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${cocktail.recipe.map((item, index) => {
+                                        const isOmitted = AppState.omittedIngredients.includes(`${cocktailId}-${index}`);
+                                        return `
+                                            <tr style="${isOmitted ? 'opacity: 0.5; text-decoration: line-through;' : ''}">
+                                                <td>
+                                                    <input type="checkbox" class="omit-checkbox" 
+                                                           ${isOmitted ? 'checked' : ''}
+                                                           onchange="toggleClassicOmitIngredient(${cocktailId}, ${index}, this.checked)">
+                                                </td>
+                                                <td>
+                                                    <span class="ingredient-reference" onclick="showIngredientReference('${item.spiritId || ''}', '${item.ingredient}')">
+                                                        ${item.ingredient}
+                                                    </span>
+                                                </td>
+                                                <td>${item.amount}</td>
+                                                <td>${item.unit}</td>
+                                                <td>$${item.pourCost ? item.pourCost.toFixed(2) : '0.00'}</td>
+                                                <td>${item.abv}%</td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+
+                            <div class="method-section">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                    <i class="fas fa-flask" style="color: var(--accent);"></i>
+                                    <span style="font-weight: 600; color: var(--primary);">Method</span>
+                                </div>
+                                <p style="color: var(--dark); line-height: 1.6;">${cocktail.method}</p>
+                            </div>
+
+                            ${cocktail.notes ? `
+                                <div class="notes-section">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                        <i class="fas fa-sticky-note" style="color: var(--accent);"></i>
+                                        <span style="font-weight: 600; color: var(--primary);">Notes</span>
+                                    </div>
+                                    <p style="color: var(--dark); line-height: 1.6;">${cocktail.notes}</p>
+                                </div>
+                            ` : ''}
+
+                            <!-- SCALE RECIPE SECTION - FULL BATCH CALCULATOR -->
+                            <div class="scale-section">
+                                <div class="scale-title">
+                                    <i class="fas fa-calculator"></i> SCALE RECIPE
+                                </div>
+
+                                <div class="scale-step">
+                                    <div class="step-header">
+                                        <div class="step-number">1</div>
+                                        <div class="step-title">CHOOSE SCALING METHOD</div>
+                                    </div>
+                                    <div class="scale-options">
+                                        <div class="scale-option ${AppState.scaleMethod === 'serving' ? 'active' : ''}" onclick="setClassicScaleMethod('serving', ${cocktailId})">
+                                            <div class="scale-option-title">SCALE BY NUMBER OF SERVINGS</div>
+                                            <div class="scale-option-desc">Choose this if you know how many servings you need.</div>
+                                        </div>
+                                        <div class="scale-option ${AppState.scaleMethod === 'volume' ? 'active' : ''}" onclick="setClassicScaleMethod('volume', ${cocktailId})">
+                                            <div class="scale-option-title">SCALE BY TOTAL VOLUME (ML)</div>
+                                            <div class="scale-option-desc">Ideal for filling a specific container or batch size.</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="scale-step">
+                                    <div class="step-header">
+                                        <div class="step-number">2</div>
+                                        <div class="step-title">ENTER QUANTITY</div>
+                                    </div>
+                                    <div class="quantity-input-group">
+                                        <input type="number" id="scaleQuantityInput" class="quantity-input" 
+                                               value="${AppState.scaleQuantity}" min="0.1" step="0.1" 
+                                               onchange="updateClassicScaleQuantity(this.value, ${cocktailId})">
+                                        <span class="quantity-label">${AppState.scaleMethod === 'serving' ? 'SERVINGS' : 'MILLILITERS (ML)'}</span>
+                                    </div>
+                                    <div style="margin-top: 0.5rem; display: flex; align-items: center; gap: 1rem;">
+                                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <input type="checkbox" id="includeWaterCheckbox" 
+                                                   ${AppState.includeWater ? 'checked' : ''} 
+                                                   onchange="toggleClassicIncludeWater(${cocktailId})"
+                                                   style="accent-color: var(--accent);">
+                                            <span>Add water for dilution</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="scale-step">
+                                    <div class="step-header">
+                                        <div class="step-number">3</div>
+                                        <div class="step-title">ADD DILUTION (OPTIONAL)</div>
+                                    </div>
+                                    <div class="dilution-options">
+                                        <div class="dilution-card ${AppState.dilutionType === 'none' ? 'active' : ''}" onclick="setClassicDilutionType('none', ${cocktailId})">
+                                            <div class="dilution-percentage">0%</div>
+                                            <div class="dilution-desc">NO DILUTION</div>
+                                            <div class="dilution-desc">Best if you plan to shake or stir to order.</div>
+                                        </div>
+                                        <div class="dilution-card ${AppState.dilutionType === 'spirit-driven' ? 'active' : ''}" onclick="setClassicDilutionType('spirit-driven', ${cocktailId})">
+                                            <div class="dilution-percentage">18%</div>
+                                            <div class="dilution-desc">SPIRIT-DRIVEN</div>
+                                            <div class="dilution-desc">Best for strong drinks containing mainly spirits.</div>
+                                        </div>
+                                        <div class="dilution-card ${AppState.dilutionType === 'shake' ? 'active' : ''}" onclick="setClassicDilutionType('shake', ${cocktailId})">
+                                            <div class="dilution-percentage">25%</div>
+                                            <div class="dilution-desc">SHAKEN COCKTAILS</div>
+                                            <div class="dilution-desc">Ideal for cocktails with fruit juices, dairy, or eggs.</div>
+                                        </div>
+                                        <div class="dilution-card ${AppState.dilutionType === 'stir' ? 'active' : ''}" onclick="setClassicDilutionType('stir', ${cocktailId})">
+                                            <div class="dilution-percentage">20%</div>
+                                            <div class="dilution-desc">STIRRED</div>
+                                            <div class="dilution-desc">Perfect for spirit-forward cocktails.</div>
+                                        </div>
+                                    </div>
+                                    <div class="custom-dilution-group">
+                                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <input type="checkbox" ${AppState.dilutionType === 'custom' ? 'checked' : ''} onchange="toggleClassicCustomDilutionType(this.checked, ${cocktailId})">
+                                            <span>CUSTOM DILUTION</span>
+                                        </label>
+                                        <input type="number" id="customDilutionInput" 
+                                               value="${(AppState.customDilution * 100).toFixed(0)}" 
+                                               min="0" max="100" step="1" 
+                                               style="width: 80px; padding: 0.5rem; border: 1px solid rgba(0,0,0,0.1); border-radius: 6px;"
+                                               ${AppState.dilutionType !== 'custom' ? 'disabled' : ''}
+                                               onchange="setClassicCustomDilution(this.value, ${cocktailId})">
+                                        <span>%</span>
+                                    </div>
+                                </div>
+
+                                <button class="calculate-btn" onclick="calculateClassicScaledRecipe(${cocktailId})">
+                                    <i class="fas fa-calculator"></i> CALCULATE SCALED RECIPE
+                                </button>
+
+                                ${AppState.showScaledResults ? `
+                                    <div class="scaled-results">
+                                        <h4 style="color: var(--accent); margin-bottom: 1rem; font-size: 1.1rem;">
+                                            Scaled Recipe (${scaleFactor.toFixed(2)}x)
+                                        </h4>
+                                        
+                                        ${dilutionFactor > 0 && AppState.includeWater ? `
+                                            <div class="water-note">
+                                                <i class="fas fa-tint"></i> Dilution: ${(dilutionFactor * 100).toFixed(0)}% • Water added: ${waterAmount.toFixed(0)}ml
+                                            </div>
+                                        ` : ''}
+                                        
+                                        ${AppState.scaleMethod === 'volume' ? `
+                                            <div class="serving-note">
+                                                <i class="fas fa-users"></i> This batch yields approximately ${servingsFromVolume} servings (based on 150ml per serving)
+                                            </div>
+                                        ` : ''}
+                                        
+                                        <table class="recipe-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ingredient</th>
+                                                    <th>Single</th>
+                                                    <th>Batch (ml)</th>
+                                                    <th>Batch Cost</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${scaledRecipe.map(item => `
+                                                    <tr>
+                                                        <td>${item.ingredient} ${item.isWater ? '💧' : ''}</td>
+                                                        <td>${item.amount || '-'}</td>
+                                                        <td style="font-weight: 700; color: var(--accent);">${item.scaledAmount}</td>
+                                                        <td>$${(item.pourCost * scaleFactor).toFixed(2)}</td>
+                                                    </tr>
+                                                `).join('')}
+                                            </tbody>
+                                        </table>
+                                        
+                                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.5rem;">
+                                            <div style="background: var(--white); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05);">
+                                                <div style="font-size: 0.75rem; color: var(--gray);">Total Volume</div>
+                                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">${totalVolume.toFixed(0)}ml</div>
+                                            </div>
+                                            <div style="background: var(--white); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05);">
+                                                <div style="font-size: 0.75rem; color: var(--gray);">Batch Cost</div>
+                                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">$${batchCost.toFixed(2)}</div>
+                                            </div>
+                                            <div style="background: var(--white); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05);">
+                                                <div style="font-size: 0.75rem; color: var(--gray);">Batch Revenue</div>
+                                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">$${batchRevenue.toFixed(2)}</div>
+                                            </div>
+                                            <div style="background: var(--white); padding: 1.25rem; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05);">
+                                                <div style="font-size: 0.75rem; color: var(--gray);">Final ABV</div>
+                                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">${finalAbv.toFixed(1)}%</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                                            <button class="btn btn-share" onclick="shareClassicCocktail(${cocktailId})" style="flex: 1;">
+                                                <i class="fas fa-share-alt"></i> Share Recipe
+                                            </button>
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Scale Functions for Classic Cocktails
+        function setClassicScaleMethod(method, cocktailId) {
+            AppState.scaleMethod = method;
+            AppState.scaleQuantity = method === 'serving' ? 1 : 1000;
+            renderClassicCocktailDetailPage(cocktailId);
+        }
+
+        function updateClassicScaleQuantity(value, cocktailId) {
+            AppState.scaleQuantity = parseFloat(value) || 0;
+            renderClassicCocktailDetailPage(cocktailId);
+        }
+
+        function setClassicDilutionType(type, cocktailId) {
+            AppState.dilutionType = type;
+            renderClassicCocktailDetailPage(cocktailId);
+        }
+
+        function setClassicCustomDilution(value, cocktailId) {
+            AppState.dilutionType = 'custom';
+            AppState.customDilution = parseFloat(value) / 100;
+            renderClassicCocktailDetailPage(cocktailId);
+        }
+
+        function toggleClassicCustomDilutionType(checked, cocktailId) {
+            if (checked) {
+                AppState.dilutionType = 'custom';
+            } else {
+                AppState.dilutionType = 'none';
+            }
+            renderClassicCocktailDetailPage(cocktailId);
+        }
+
+        function toggleClassicIncludeWater(cocktailId) {
+            AppState.includeWater = !AppState.includeWater;
+            renderClassicCocktailDetailPage(cocktailId);
+        }
+
+        function toggleClassicOmitIngredient(cocktailId, index, isOmitted) {
+            const key = `${cocktailId}-${index}`;
+            if (isOmitted) {
+                if (!AppState.omittedIngredients.includes(key)) {
+                    AppState.omittedIngredients.push(key);
+                }
+            } else {
+                AppState.omittedIngredients = AppState.omittedIngredients.filter(k => k !== key);
+            }
+            renderClassicCocktailDetailPage(cocktailId);
+        }
+
+        function calculateClassicScaledRecipe(cocktailId) {
+            AppState.showScaledResults = true;
+            renderClassicCocktailDetailPage(cocktailId);
         }
 
         function renderCocktailDetailPage(venueId, cocktailId) {
@@ -3818,7 +4165,7 @@
             `;
         }
 
-        // Scale Functions
+        // Scale Functions for Venue Cocktails
         function setScaleMethod(method, venueId, cocktailId) {
             AppState.scaleMethod = method;
             AppState.scaleQuantity = method === 'serving' ? 1 : 1000;
@@ -3937,7 +4284,11 @@
             if (cocktail) {
                 cocktail.favorite = !cocktail.favorite;
                 showToast(cocktail.favorite ? '⭐ Added to favorites' : 'Removed from favorites');
-                renderClassicCocktails();
+                if (AppState.currentView === 'classic-detail' && AppState.selectedClassicCocktail === cocktailId) {
+                    renderClassicCocktailDetailPage(cocktailId);
+                } else {
+                    renderClassicCocktails();
+                }
             }
         }
 
@@ -4059,7 +4410,7 @@
             document.getElementById('venueSelectionField').style.display = 'block';
         }
 
-        // CLASSIC COCKTAILS - Updated with search, alphabetical navigation, and venue-style cards
+        // CLASSIC COCKTAILS - Updated with working click handlers and detail page
         function renderClassicCocktails() {
             const sortedClassics = [...AppState.classicCocktails].sort((a, b) => a.name.localeCompare(b.name));
             
@@ -4100,7 +4451,7 @@
 
                 <div class="alphabet-nav-container">
                     <div class="alphabet-content">
-                        <div class="classic-grid">
+                        <div class="item-list">
                             ${alphabet.map(letter => {
                                 const classics = grouped[letter];
                                 if (classics?.length) return `
@@ -4120,16 +4471,16 @@
                                                     </div>
                                                 </div>
                                                 <div class="classic-info">
-                                                    <div class="item-name">
+                                                    <div class="classic-name">
                                                         ${cocktail.name}
-                                                        <span class="classic-family">${cocktail.family}</span>
+                                                        <span class="family-tag">${cocktail.family}</span>
                                                         ${cocktail.favorite ? '<i class="fas fa-star favorite-star"></i>' : ''}
                                                     </div>
-                                                    <div class="item-meta">
+                                                    <div class="classic-meta">
                                                         <span><i class="fas fa-wine-glass"></i> ${cocktail.glassware}</span>
                                                         <span><i class="fas fa-leaf"></i> ${cocktail.garnish}</span>
                                                         <span><i class="fas fa-percent"></i> ${cocktail.finalAbv.toFixed(1)}% ABV</span>
-                                                        <span class="item-badge">$${cocktail.sellingPrice}</span>
+                                                        <span class="classic-price-badge">$${cocktail.sellingPrice}</span>
                                                     </div>
                                                     <div style="margin-top: 0.5rem; color: var(--gray); font-size: 0.875rem;">
                                                         ${cocktail.recipe.length} ingredients • COGS: ${cocktail.cogs}%
@@ -4195,15 +4546,6 @@
         function clearClassicSearch() {
             AppState.classicSearchTerm = '';
             renderClassicCocktails();
-        }
-
-        // View Classic Cocktail Detail
-        function viewClassicCocktailDetail(cocktailId) {
-            const cocktail = AppState.classicCocktails.find(c => c.id === cocktailId);
-            if (!cocktail) return;
-            
-            showToast(`📖 ${cocktail.name}`);
-            // In a full implementation, this would open a detail modal/view
         }
 
         // Edit Classic Cocktail - Opens the same modal as signature cocktails
@@ -4313,7 +4655,7 @@
             cocktail.dilutionPreset = selected?.value || 'none';
             
             closeModal('addCocktailModal');
-            renderClassicCocktails();
+            renderClassicCocktailDetailPage(cocktailId);
             showToast(`✅ ${cocktail.name} updated`);
             
             const form = document.getElementById('newCocktailForm');
@@ -4329,7 +4671,11 @@
                     const cocktail = AppState.classicCocktails.find(c => c.id === cocktailId);
                     if (cocktail) {
                         cocktail.image = e.target.result;
-                        renderClassicCocktails();
+                        if (AppState.currentView === 'classic-detail' && AppState.selectedClassicCocktail === cocktailId) {
+                            renderClassicCocktailDetailPage(cocktailId);
+                        } else {
+                            renderClassicCocktails();
+                        }
                         showToast(`✅ ${cocktail.name} image updated`);
                     }
                 };
